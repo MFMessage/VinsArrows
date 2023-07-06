@@ -3,9 +3,9 @@ Console.WriteLine($" That arrow costs {arrow.GetCost()} gold.");
 
 Arrow GetArrow()
 {
-    ArrowHead arrowhead = GetHead();
-    Fletching fletching = GetFletch();
-    float shaft = GetShaft();
+    ArrowHead arrowhead = SetHead();
+    Fletching fletching = SetFletch();
+    float shaft = SetShaft();
 
     return new Arrow(arrowhead, shaft, fletching);
 }
@@ -21,13 +21,13 @@ float AskForNumberInRange(string text, int min, int max)
     }
 }
 
-float GetShaft()
+float SetShaft()
 {
     float shaftLength = AskForNumberInRange("How long would you like the arrow shaft to be? (between 60 and 100 cm)", 60, 100);
     return shaftLength;
 }
 
-Fletching GetFletch()
+Fletching SetFletch()
 {
     while (true)
     {
@@ -51,7 +51,7 @@ Fletching GetFletch()
     }
 }
 
-ArrowHead GetHead()
+ArrowHead SetHead()
 {
     while (true)
     {
@@ -76,22 +76,18 @@ ArrowHead GetHead()
 }
 enum ArrowHead
 {
-    Steel,
-    Wood,
-    Obsidian
+    Steel, Wood, Obsidian
 }
 
 enum Fletching
 {
-    Plastic,
-    Turkey,
-    Goose
+    Plastic, Turkey, Goose
 }
 class Arrow
 {
-    public ArrowHead _arrowhead;
-    public float _shaft;
-    public Fletching _fletching;
+    private ArrowHead _arrowhead;
+    private float _shaft;
+    private Fletching _fletching;
 
     public Arrow(ArrowHead arrowHead, float shaft, Fletching fletching)
     {
@@ -99,6 +95,11 @@ class Arrow
         _fletching = fletching;
         _shaft = shaft;
     }
+
+    public ArrowHead GetHead() => _arrowhead;
+    public float GetShaft() => _shaft;
+    public Fletching GetFletching() => _fletching;
+
     public float GetCost()
     {
         float arrowheadCost = _arrowhead switch
