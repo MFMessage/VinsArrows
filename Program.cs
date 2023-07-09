@@ -36,18 +36,13 @@ Fletching SetFletch()
 
         if (fletchChoice != null)
             fletchChoice = fletchChoice.ToLower().Trim();
-
-        if (fletchChoice == "plastic")
-            return Fletching.Plastic;
-        else if (fletchChoice == "turkey")
-            return Fletching.Turkey;
-        else if (fletchChoice == "goose")
-            return Fletching.Goose;
-        else
+        return fletchChoice switch
         {
-            Console.WriteLine("Invalid choice, try again.");
-            continue;
-        }
+            "plastic" => Fletching.Plastic,
+            "turkey" => Fletching.Turkey,
+            "goose" => Fletching.Goose,
+            _ => Fletching.invalid
+        };
     }
 }
 
@@ -57,15 +52,25 @@ ArrowHead SetHead()
     {
         Console.Write("Choose an arrowhead type (Steel, Wood, or Obsidian)");
         string headChoice = Console.ReadLine();
-
+        if (headChoice != null)
             headChoice = headChoice.ToLower().Trim();
             return headChoice switch
             {
                 "steel" => ArrowHead.Steel,
-                "wood" => ArrowHead.Wood, // WTF IS HAPPENING HERE HOW DO I MAKE IT SO IT WILL ASK AGAIN IF THE CHOICE IS INVALID???
+                "wood" => ArrowHead.Wood, 
                 "obsidian" => ArrowHead.Obsidian,
                 _ => ArrowHead.invalid
             };
+    }
+}
+float AskForNumberInRange(string text, int min, int max)
+{
+    while (true)
+    {
+        Console.Write(text);
+        if (float.TryParse(Console.ReadLine(), out float result) && min <= result && max >= result)
+            return result;
+        else continue;
     }
 }
 
@@ -108,16 +113,7 @@ class Arrow
 
         return arrowheadCost + fletchingCost + shaftCost;
     }
-    float AskForNumberInRange(string text, int min, int max)
-    {
-        while (true)
-        {
-            Console.Write(text);
-            if (float.TryParse(Console.ReadLine(), out float result) && min <= result && max >= result)
-                return result;
-            else continue;
-        }
-    }
+
 }
 enum ArrowHead
 {
