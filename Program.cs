@@ -63,16 +63,6 @@ ArrowHead SetHead()
             };
     }
 }
-float AskForNumberInRange(string text, int min, int max)
-{
-    while (true)
-    {
-        Console.Write(text);
-        if (float.TryParse(Console.ReadLine(), out float result) && min <= result && max >= result)
-            return result;
-        else continue;
-    }
-}
 
 class Arrow
 {
@@ -91,7 +81,7 @@ class Arrow
     public float Shaft
     {
         get { return _shaft; }
-        set { _shaft = value = AskForNumberInRange("How long would you like the arrow shaft to be? (between 60 and 100 cm)", 60, 100); }
+        set { _shaft = value;}
     }
     public Fletching GetFletching() => _fletching;
 
