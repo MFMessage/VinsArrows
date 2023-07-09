@@ -29,46 +29,41 @@ float SetShaft()
 
 Fletching SetFletch()
 {
-    while (true)
-    {
-        Console.Write("Choose a fletching feather type (Plastic, Turkey, or Goose)");
-        string fletchChoice = Console.ReadLine();
+    Console.Write("Choose a fletching feather type (Plastic, Turkey, or Goose)");
+    string fletchChoice = Console.ReadLine();
 
-        if (fletchChoice != null)
-            fletchChoice = fletchChoice.ToLower().Trim();
-        return fletchChoice switch
-        {
-            "plastic" => Fletching.Plastic,
-            "turkey" => Fletching.Turkey,
-            "goose" => Fletching.Goose,
-            _ => Fletching.invalid
-        };
-    }
+    if (fletchChoice != null)
+        fletchChoice = fletchChoice.ToLower().Trim();
+    return fletchChoice switch
+    {
+        "plastic" => Fletching.Plastic,
+        "turkey" => Fletching.Turkey,
+        "goose" => Fletching.Goose,
+        _ => Fletching.invalid
+    };
 }
 
 ArrowHead SetHead()
 {
-    while (true)
+    Console.Write("Choose an arrowhead type (Steel, Wood, or Obsidian)");
+    string headChoice = Console.ReadLine();
+    if (headChoice != null)
+        headChoice = headChoice.ToLower().Trim();
+    return headChoice switch
     {
-        Console.Write("Choose an arrowhead type (Steel, Wood, or Obsidian)");
-        string headChoice = Console.ReadLine();
-        if (headChoice != null)
-            headChoice = headChoice.ToLower().Trim();
-            return headChoice switch
-            {
-                "steel" => ArrowHead.Steel,
-                "wood" => ArrowHead.Wood, 
-                "obsidian" => ArrowHead.Obsidian,
-                _ => ArrowHead.invalid
-            };
-    }
+        "steel" => ArrowHead.Steel,
+        "wood" => ArrowHead.Wood,
+        "obsidian" => ArrowHead.Obsidian,
+        _ => ArrowHead.invalid
+    };
+
 }
 
 class Arrow
 {
-    private ArrowHead _arrowhead;
-    private float _shaft;
-    private Fletching _fletching;
+    private readonly ArrowHead _arrowhead;
+    private readonly float _shaft;
+    private readonly Fletching _fletching;
 
     public Arrow(ArrowHead arrowHead, float shaft, Fletching fletching)
     {
@@ -81,7 +76,6 @@ class Arrow
     public float Shaft
     {
         get { return _shaft; }
-        set { _shaft = value;}
     }
     public Fletching GetFletching() => _fletching;
 
@@ -91,13 +85,15 @@ class Arrow
         {
             ArrowHead.Steel => 10,
             ArrowHead.Wood => 3,
-            ArrowHead.Obsidian => 5
+            ArrowHead.Obsidian => 5,
+            _ => 3
         };
         float fletchingCost = _fletching switch
         {
             Fletching.Plastic => 10,
             Fletching.Turkey => 5,
-            Fletching.Goose => 3
+            Fletching.Goose => 3,
+            _ => 3
         };
         float shaftCost = 0.05f * _shaft;
 
